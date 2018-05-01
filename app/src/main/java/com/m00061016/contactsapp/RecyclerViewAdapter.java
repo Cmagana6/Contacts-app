@@ -1,13 +1,19 @@
 package com.m00061016.contactsapp;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -15,6 +21,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     Context mContext;
     List<Contact> mData;
+    Dialog myDialog;
 
     public RecyclerViewAdapter(Context mContext, List<Contact> mData) {
         this.mContext = mContext;
@@ -27,8 +34,32 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         View v;
 
         v= LayoutInflater.from(mContext).inflate(R.layout.item_contact,parent,false);
-        MyViewHolder vHolder = new MyViewHolder(v);
+        final MyViewHolder vHolder = new MyViewHolder(v);
 
+        //Inicializando el cuadro de dialogo
+
+        myDialog = new Dialog(mContext);
+        myDialog.setContentView(R.layout.dialog_contact);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+
+        vHolder.item_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView dialog_name_tv = (TextView) myDialog.findViewById(R.id.dialog_name_id);
+                TextView dialog_phone_tv = (TextView) myDialog.findViewById(R.id.dialog_phone_id);
+                ImageView dialog_contact_img = (ImageView) myDialog.findViewById(R.id.dialog_img_id);
+
+                dialog_name_tv.setText(mData.get(vHolder.getAdapterPosition()).getName());
+                dialog_phone_tv.setText(mData.get(vHolder.getAdapterPosition()).getPhone());
+                dialog_contact_img.setImageResource(mData.get(vHolder.getAdapterPosition()).getPhoto());
+
+
+                Toast.makeText(mContext, String.valueOf(mData.get(vHolder.getAdapterPosition()).getName()), Toast.LENGTH_SHORT).show();
+                myDialog.show();
+            }
+        });
 
         return vHolder;
     }
@@ -49,12 +80,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
+        private LinearLayout item_contact;
         private TextView tv_name, tv_phone;
         private ImageView img;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
+            item_contact = (LinearLayout) itemView.findViewById(R.id.contact_item_id);
             tv_name = (TextView) itemView.findViewById(R.id.name_contact);
             tv_phone = (TextView) itemView.findViewById(R.id.phone_contact);
             img = (ImageView) itemView.findViewById(R.id.img_contact);
