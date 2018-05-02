@@ -23,6 +23,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     List<Contact> mData;
     Dialog myDialog;
 
+
     public RecyclerViewAdapter(Context mContext, List<Contact> mData) {
         this.mContext = mContext;
         this.mData = mData;
