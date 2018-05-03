@@ -1,18 +1,25 @@
 package com.m00061016.contactsapp;
 
+import android.app.Dialog;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +31,9 @@ public class FragmentContact extends Fragment {
     private List<Contact> lstContact;
     private StringBuilder wbuilder,wbuilder2;
 
-
     public FragmentContact() {
     }
+
 
     @Nullable
     @Override
@@ -44,24 +51,17 @@ public class FragmentContact extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Context mContext;
+
+        mContext = (Context) getContext();
 
         lstContact = new ArrayList<>();
-
         //Para que el metodo loadContacts funcione deberemos otorgarle el permiso de acceder a los contactos a la aplicacion
         loadContacts();
 
-        String names = wbuilder.toString();
-        String phones = wbuilder2.toString();
-        int maxLoadContacts= 15;
-
-        String[] allNames = names.split("\\.");
-        String[] allPhones = phones.split("\\.");
-
-        for(int i=1; i<allNames.length;i++){
-            lstContact.add(new Contact(allNames[i],allPhones[i],R.drawable.contact_icon));
-        }
-
     }
+
+
 
     private void loadContacts(){
         StringBuilder builder = new StringBuilder();
@@ -96,7 +96,18 @@ public class FragmentContact extends Fragment {
 
         wbuilder= builder;
         wbuilder2=builder2;
-    }
 
+
+        String names = wbuilder.toString();
+        String phones = wbuilder2.toString();
+
+        String[] allNames = names.split("\\.");
+        String[] allPhones = phones.split("\\.");
+
+        for(int i=1; i<allNames.length;i++){
+            lstContact.add(new Contact(allNames[i],allPhones[i],R.drawable.contact_icon));
+        }
+
+    }
 
 }

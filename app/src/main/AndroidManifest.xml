@@ -3,6 +3,7 @@
     package="com.m00061016.contactsapp">
 
         <uses-permission android:name="android.permission.READ_CONTACTS"></uses-permission>
+        <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
 
     <application
         android:allowBackup="true"

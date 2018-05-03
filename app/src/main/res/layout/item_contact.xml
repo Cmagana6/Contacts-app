@@ -38,20 +38,22 @@
             android:text="Phone Number here"
             android:id="@+id/phone_contact"
             />
+
+
     </LinearLayout>
 
     <LinearLayout
-        android:gravity="end"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_call"
-            />
-
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        >
+    <ImageButton
+        android:id="@+id/contact_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_call"
+        android:background="@color/backgroundFragment"
+        />
     </LinearLayout>
 
 </LinearLayout>
