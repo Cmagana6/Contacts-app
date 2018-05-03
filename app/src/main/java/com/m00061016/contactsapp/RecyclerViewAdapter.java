@@ -29,7 +29,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     Context mContext;
     List<Contact> mData;
     Dialog myDialog;
-    String phone_n;
+    String phone_n,name;
 
     public RecyclerViewAdapter(Context mContext, List<Contact> mData) {
         this.mContext = mContext;
@@ -61,6 +61,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 dialog_phone_tv.setText(mData.get(vHolder.getAdapterPosition()).getPhone());
                 dialog_contact_img.setImageResource(mData.get(vHolder.getAdapterPosition()).getPhoto());
 
+                name = mData.get(vHolder.getAdapterPosition()).getName();
                 phone_n = mData.get(vHolder.getAdapterPosition()).getPhone();
                 Toast.makeText(mContext, String.valueOf(mData.get(vHolder.getAdapterPosition()).getName()), Toast.LENGTH_SHORT).show();
                 myDialog.show();
@@ -68,20 +69,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
 
+        //Share desde el cuadro de dialogo
+        myDialog.findViewById(R.id.dialog_share_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(i.EXTRA_TEXT, "Name: "+name+"\nPhone: "+phone_n);
+                v.getContext().startActivity(i.createChooser(i,"Share with..."));
+
+            }
+        });
+
+        //Lanzando la llamada desde el cuadro de dialogo
         myDialog.findViewById(R.id.contact_call_dialog).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String number = String.valueOf(R.id.dialog_phone_id);
                 Intent call = new Intent(Intent.ACTION_CALL);
                 call.setData(Uri.parse("tel:" +phone_n));
                 if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
                     return;
                 }
                 v.getContext().startActivity(call);
@@ -91,6 +98,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return vHolder;
     }
 
+    //Lanzando la llamada desde el RecyclewView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
@@ -104,18 +112,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Intent call = new Intent(Intent.ACTION_CALL);
                 call.setData(Uri.parse("tel:" + mData.get(position).getPhone()));
                 if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
                     return;
                 }
                 v.getContext().startActivity(call);
             }
         });
+
 
 
     }
