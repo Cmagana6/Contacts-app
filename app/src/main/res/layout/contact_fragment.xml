@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundFragment"
     android:padding="16dp"
     >
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:src="@drawable/ic_add_circle_black_24dp"
+        android:hint="Type in here to search"
+        android:textAlignment="center"
+        android:textColorHighlight="#ffffff"
+        android:textColorHint="#ffffff"
         />
 
     <android.support.v7.widget.RecyclerView
@@ -19,4 +24,4 @@
         android:id="@+id/contact_recyclerview"></android.support.v7.widget.RecyclerView>
 
 
-</android.support.design.widget.CoordinatorLayout>
+</android.support.v7.widget.LinearLayoutCompat>

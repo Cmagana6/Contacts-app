@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
@@ -78,7 +78,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 i.setType("text/plain");
                 i.putExtra(i.EXTRA_TEXT, "Name: "+name+"\nPhone: "+phone_n);
                 v.getContext().startActivity(i.createChooser(i,"Share with..."));
-
+                myDialog.dismiss();
             }
         });
 
@@ -92,8 +92,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     return;
                 }
                 v.getContext().startActivity(call);
+                myDialog.dismiss();
             }
         });
+
+
 
         return vHolder;
     }
@@ -105,20 +108,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.tv_name.setText(mData.get(position).getName());
         holder.tv_phone.setText(mData.get(position).getPhone());
         holder.img.setImageResource(mData.get(position).getPhoto());
-
-        holder.call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent call = new Intent(Intent.ACTION_CALL);
-                call.setData(Uri.parse("tel:" + mData.get(position).getPhone()));
-                if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                v.getContext().startActivity(call);
-            }
-        });
-
-
 
     }
 
@@ -133,7 +122,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView tv_name, tv_phone;
         private ImageView img;
         private Button share;
-        private ImageButton call;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -142,8 +130,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tv_name = (TextView) itemView.findViewById(R.id.name_contact);
             tv_phone = (TextView) itemView.findViewById(R.id.phone_contact);
             img = (ImageView) itemView.findViewById(R.id.img_contact);
-            call = (ImageButton) itemView.findViewById(R.id.contact_call);
-
         }
     }
 

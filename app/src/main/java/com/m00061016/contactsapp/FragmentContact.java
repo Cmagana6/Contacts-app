@@ -5,20 +5,28 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -44,6 +52,38 @@ public class FragmentContact extends Fragment {
         myrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         myrecyclerview.setAdapter(recyclerAdapter);
 
+
+        //Buscando un contacto
+        EditText ets = (EditText) v.findViewById(R.id.et_search);
+        ets.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                List<Contact> filterList = new ArrayList<>();
+
+                for(Contact item : lstContact){
+                    if (item.getName().toLowerCase().contains(s.toString().toLowerCase())){
+                        filterList.add(item);
+                    }
+
+                }
+
+                RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(),filterList);
+                myrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+                myrecyclerview.setAdapter(recyclerViewAdapter);
+            }
+        });
+
         return v;
     }
 
@@ -55,15 +95,17 @@ public class FragmentContact extends Fragment {
 
         mContext = (Context) getContext();
 
+
         lstContact = new ArrayList<>();
         //Para que el metodo loadContacts funcione deberemos otorgarle el permiso de acceder a los contactos a la aplicacion
         loadContacts();
 
+
+
     }
 
 
-
-    private void loadContacts(){
+    public void loadContacts(){
         StringBuilder builder = new StringBuilder();
         StringBuilder builder2 = new StringBuilder();
 
