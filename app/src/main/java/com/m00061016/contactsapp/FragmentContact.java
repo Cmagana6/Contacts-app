@@ -107,6 +107,7 @@ public class FragmentContact extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        dialogAdd();
 
     }
 
@@ -161,5 +162,43 @@ public class FragmentContact extends Fragment {
         lstContact.add(0,new Contact(name,phone,R.drawable.contact_icon));
 
     }
+
+    public void dialogAdd(){
+        FloatingActionButton btnadd = (FloatingActionButton) getActivity().findViewById(R.id.btn_add);
+
+        btnadd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog add_dialog = new Dialog(v.getContext());
+                add_dialog.setContentView(R.layout.dialog_add_contact);
+                add_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                add_dialog.show();
+
+                add_dialog.findViewById(R.id.dialog_btn_add).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        EditText name = add_dialog.findViewById(R.id.dialog_new_name_id);
+                        EditText number = add_dialog.findViewById(R.id.dialog_new_phone_id);
+
+                        String set_name = name.getText().toString();
+                        String set_number = number.getText().toString();
+
+                        lstContact.add(new Contact(set_name,set_number,R.drawable.contact_icon));
+
+                        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(),lstContact);
+                        myrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        myrecyclerview.setAdapter(recyclerViewAdapter);
+
+                        add_dialog.dismiss();
+                    }
+                });
+
+            }
+        });
+
+    }
+
 
 }

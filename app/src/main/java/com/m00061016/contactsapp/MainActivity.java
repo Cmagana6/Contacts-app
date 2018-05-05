@@ -40,7 +40,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TextView;
-
+import static com.m00061016.contactsapp.RecyclerViewAdapter.*;
+import static com.m00061016.contactsapp.FragmentContact.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
+    private RecyclerViewAdapter recyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,31 +86,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        FloatingActionButton btn_add = (FloatingActionButton) findViewById(R.id.btn_add);
-
-        btn_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Dialog myD = new Dialog(v.getContext());
-
-                myD.setContentView(R.layout.dialog_add_contact);
-                myD.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                myD.show();
-
-                myD.findViewById(R.id.dialog_btn_add).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-
-                        myD.dismiss();
-                    }
-                });
-            }
-        });
-
-    }
 }

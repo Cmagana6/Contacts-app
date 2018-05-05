@@ -68,6 +68,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Toast.makeText(mContext, String.valueOf(mData.get(vHolder.getAdapterPosition()).getName()), Toast.LENGTH_SHORT).show();
                 myDialog.show();
 
+                //Editando un contacto
+
                 myDialog.findViewById(R.id.btn_edit).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
