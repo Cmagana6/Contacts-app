@@ -17,11 +17,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
@@ -29,7 +31,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     Context mContext;
     List<Contact> mData;
     Dialog myDialog;
-    String phone_n,name;
+    String phone_n, name;
 
     public RecyclerViewAdapter(Context mContext, List<Contact> mData) {
         this.mContext = mContext;
@@ -66,6 +68,47 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Toast.makeText(mContext, String.valueOf(mData.get(vHolder.getAdapterPosition()).getName()), Toast.LENGTH_SHORT).show();
                 myDialog.show();
 
+                myDialog.findViewById(R.id.btn_edit).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Dialog editD = new Dialog(mContext);
+                        editD.setContentView(R.layout.dialog_edit_contact);
+                        editD.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                        myDialog.dismiss();
+                        editD.show();
+
+                        editD.findViewById(R.id.editdialog_btn_save).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String e_name, e_phone;
+                                EditText e_new_name,e_new_number;
+                                e_new_name = (EditText) editD.findViewById(R.id.editdialog_new_name_id);
+                                e_new_number = (EditText) editD.findViewById(R.id.editdialog_new_phone_id);
+
+                                e_name = e_new_name.getText().toString();
+                                e_phone = e_new_number.getText().toString();
+
+                                TextView name_e,phone_e;
+                                name_e = (TextView) vHolder.item_contact.findViewById(R.id.name_contact);
+                                phone_e = (TextView) vHolder.item_contact.findViewById(R.id.phone_contact);
+
+                                mData.get(vHolder.getAdapterPosition()).setName(e_name);
+                                mData.get(vHolder.getAdapterPosition()).setPhone(e_phone);
+
+                                name_e.setText(e_name);
+                                phone_e.setText(e_phone);
+
+                                Toast.makeText(mContext,("Contacto editado" ),Toast.LENGTH_SHORT).show();
+
+                                editD.dismiss();
+
+                            }
+                        });
+                    }
+                });
+
+
             }
         });
 
@@ -76,8 +119,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
-                i.putExtra(i.EXTRA_TEXT, "Name: "+name+"\nPhone: "+phone_n);
-                v.getContext().startActivity(i.createChooser(i,"Share with..."));
+                i.putExtra(i.EXTRA_TEXT, "Name: " + name + "\nPhone: " + phone_n);
+                v.getContext().startActivity(i.createChooser(i, "Share with..."));
                 myDialog.dismiss();
             }
         });
@@ -87,15 +130,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
                 Intent call = new Intent(Intent.ACTION_CALL);
-                call.setData(Uri.parse("tel:" +phone_n));
+                call.setData(Uri.parse("tel:" + phone_n));
                 if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
+
                 v.getContext().startActivity(call);
                 myDialog.dismiss();
             }
         });
-
 
 
         return vHolder;
@@ -108,6 +151,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.tv_name.setText(mData.get(position).getName());
         holder.tv_phone.setText(mData.get(position).getPhone());
         holder.img.setImageResource(mData.get(position).getPhoto());
+
 
     }
 

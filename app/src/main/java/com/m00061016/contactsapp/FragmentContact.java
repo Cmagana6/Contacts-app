@@ -35,8 +35,8 @@ import java.util.List;
 public class FragmentContact extends Fragment {
 
     View v;
-    private RecyclerView myrecyclerview;
-    private List<Contact> lstContact;
+    public RecyclerView myrecyclerview;
+    public List<Contact> lstContact;
     private StringBuilder wbuilder,wbuilder2;
 
     public FragmentContact() {
@@ -104,6 +104,11 @@ public class FragmentContact extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
 
     public void loadContacts(){
         StringBuilder builder = new StringBuilder();
@@ -149,6 +154,11 @@ public class FragmentContact extends Fragment {
         for(int i=1; i<allNames.length;i++){
             lstContact.add(new Contact(allNames[i],allPhones[i],R.drawable.contact_icon));
         }
+
+    }
+
+    public void addContact(String name, String phone){
+        lstContact.add(0,new Contact(name,phone,R.drawable.contact_icon));
 
     }
 

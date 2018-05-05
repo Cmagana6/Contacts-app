@@ -18,10 +18,12 @@
         android:textColorHint="#ffffff"
         />
 
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/contact_recyclerview"></android.support.v7.widget.RecyclerView>
+
 
 
 </android.support.v7.widget.LinearLayoutCompat>
