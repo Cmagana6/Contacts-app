@@ -32,11 +32,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     List<Contact> mData;
     Dialog myDialog;
     String phone_n, name;
+    int position;
+
+    /*Definiendo el constructor para el adaptador del RecyclewView
+    *
+    * */
 
     public RecyclerViewAdapter(Context mContext, List<Contact> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
+
 
     @NonNull
     @Override
@@ -53,6 +59,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
+        //Mostrando la informacion de cada contacto
+
         vHolder.item_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +70,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 dialog_name_tv.setText(mData.get(vHolder.getAdapterPosition()).getName());
                 dialog_phone_tv.setText(mData.get(vHolder.getAdapterPosition()).getPhone());
                 dialog_contact_img.setImageResource(mData.get(vHolder.getAdapterPosition()).getPhoto());
+
+                position = vHolder.getAdapterPosition();
 
                 name = mData.get(vHolder.getAdapterPosition()).getName();
                 phone_n = mData.get(vHolder.getAdapterPosition()).getPhone();
@@ -142,7 +152,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
 
+//Eliminando un contacto
+        myDialog.findViewById(R.id.btn_delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                mData.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, mData.size());
+
+                Toast.makeText(mContext,("Contacto eliminado: "+name ),Toast.LENGTH_SHORT).show();
+
+                myDialog.dismiss();
+            }
+        });
         return vHolder;
     }
 
@@ -154,14 +177,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.tv_phone.setText(mData.get(position).getPhone());
         holder.img.setImageResource(mData.get(position).getPhoto());
 
-
     }
 
+
+    /*Contando la longitud del ArrayList
+    *
+    * */
     @Override
     public int getItemCount() {
         return mData.size();
     }
 
+    /*Definiendo el ViewHolder
+    *
+    * */
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         private LinearLayout item_contact;

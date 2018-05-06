@@ -8,6 +8,8 @@ public class Contact {
     public Contact() {
     }
 
+    //Definiendo el constructor de la clase
+
     public Contact(String name, String phone, int photo) {
         Name = name;
         Phone = phone;

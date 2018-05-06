@@ -43,6 +43,10 @@ public class FragmentContact extends Fragment {
     }
 
 
+    /*Sobreescribiendo el metodo onCreateView del recyclerView
+    *
+    * */
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,6 +91,10 @@ public class FragmentContact extends Fragment {
         return v;
     }
 
+    /*Creando el fragmento y cargando los contactos
+    *
+    * */
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -111,13 +119,15 @@ public class FragmentContact extends Fragment {
 
     }
 
+    /* Funcion para cargar los contactos*/
+
     public void loadContacts(){
         StringBuilder builder = new StringBuilder();
         StringBuilder builder2 = new StringBuilder();
 
         ContentResolver contentResolver = getActivity().getContentResolver();
-
-        Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+        String sortOrder = ContactsContract.Data.DISPLAY_NAME+" ASC";
+        Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, sortOrder);
 
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
@@ -152,16 +162,24 @@ public class FragmentContact extends Fragment {
         String[] allNames = names.split("\\.");
         String[] allPhones = phones.split("\\.");
 
-        for(int i=1; i<allNames.length;i++){
+        for(int i=0; i<allNames.length;i++){
             lstContact.add(new Contact(allNames[i],allPhones[i],R.drawable.contact_icon));
         }
 
     }
 
+
+    /*Funcion que agrega un contacto al arraylist que se carga al iniciar la aplicacion la cual
+    contiene el listado de la agenda
+    */
     public void addContact(String name, String phone){
         lstContact.add(0,new Contact(name,phone,R.drawable.contact_icon));
 
     }
+
+    /*Funcion para agregar un contacto desde la aplicacion no retorna nada
+        Abre una ventana que contiene un dialogo que nos permite agregar un contacto
+     */
 
     public void dialogAdd(){
         FloatingActionButton btnadd = (FloatingActionButton) getActivity().findViewById(R.id.btn_add);
@@ -185,11 +203,12 @@ public class FragmentContact extends Fragment {
                         String set_name = name.getText().toString();
                         String set_number = number.getText().toString();
 
-                        lstContact.add(new Contact(set_name,set_number,R.drawable.contact_icon));
 
+                        lstContact.add(new Contact(set_name,set_number,R.drawable.contact_icon));
                         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(),lstContact);
                         myrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
                         myrecyclerview.setAdapter(recyclerViewAdapter);
+
 
                         add_dialog.dismiss();
                     }
