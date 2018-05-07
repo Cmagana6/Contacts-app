@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -99,18 +100,19 @@ public class FragmentContact extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Context mContext;
+       Context mContext;
 
-        mContext = (Context) getContext();
+            mContext = (Context) getContext();
 
 
-        lstContact = new ArrayList<>();
-        //Para que el metodo loadContacts funcione deberemos otorgarle el permiso de acceder a los contactos a la aplicacion
-        loadContacts();
-
+            lstContact = new ArrayList<>();
+            //Para que el metodo loadContacts funcione deberemos otorgarle el permiso de acceder a los contactos a la aplicacion
+            loadContacts();
 
 
     }
+
+
 
     @Override
     public void onResume() {
@@ -119,7 +121,7 @@ public class FragmentContact extends Fragment {
 
     }
 
-    /* Funcion para cargar los contactos*/
+    /* Metodo para cargar los contactos*/
 
     public void loadContacts(){
         StringBuilder builder = new StringBuilder();
@@ -169,7 +171,7 @@ public class FragmentContact extends Fragment {
     }
 
 
-    /*Funcion que agrega un contacto al arraylist que se carga al iniciar la aplicacion la cual
+    /*Metodo que agrega un contacto al arraylist que se carga al iniciar la aplicacion la cual
     contiene el listado de la agenda
     */
     public void addContact(String name, String phone){

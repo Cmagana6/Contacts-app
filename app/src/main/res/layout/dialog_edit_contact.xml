@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Contact Name"
+                android:text="@string/contact_name"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:textSize="24sp"
@@ -35,7 +35,7 @@
                 android:id="@+id/editdialog_new_name_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Name Here"
+                android:hint="@string/name_here"
                 android:layout_marginTop="-5dp"
                 android:layout_marginLeft="8dp"
                 android:layout_gravity="bottom"
@@ -51,7 +51,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone number: "
+                android:text="@string/phone_number"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
                 android:textColor="@android:color/white"
@@ -62,7 +62,7 @@
                 android:id="@+id/editdialog_new_phone_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Phone Number Here"
+                android:hint="@string/phone_number_here"
                 android:inputType="number"
                 android:maxLength="8"
                 />
@@ -82,7 +82,7 @@
                 android:drawableLeft="@drawable/ic_add_black_24dp"
                 android:layout_gravity="start"
                 android:textAlignment="textStart"
-                android:text="SAVE"
+                android:text="@string/save"
                 android:drawablePadding="20dp"
                 />
 

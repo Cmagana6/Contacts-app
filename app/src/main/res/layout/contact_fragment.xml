@@ -12,7 +12,7 @@
         android:id="@+id/et_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Type in here to search"
+        android:hint="@string/type_in_here_to_search"
         android:textAlignment="center"
         android:textColorHighlight="#ffffff"
         android:textColorHint="#ffffff"

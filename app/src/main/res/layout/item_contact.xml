@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="Contact name"
+            android:text="@string/contact_name"
             android:id="@+id/name_contact"
             />
 
@@ -35,7 +35,7 @@
             android:textColor="#ffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Phone Number here"
+            android:text="@string/phone_number_here"
             android:id="@+id/phone_contact"
             />
 
