@@ -33,14 +33,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     Dialog myDialog;
     String phone_n, name;
     int position;
+    public RecyclerViewAdapter.onItemClickListener onItemClick;
 
     /*Definiendo el constructor para el adaptador del RecyclewView
     *
     * */
 
-    public RecyclerViewAdapter(Context mContext, List<Contact> mData) {
+    public interface onItemClickListener{
+        void onItemClick(RecyclerViewAdapter contact);
+
+    }
+
+    public RecyclerViewAdapter(Context mContext, List<Contact> mData,onItemClickListener onItemClick) {
         this.mContext = mContext;
         this.mData = mData;
+        this.onItemClick = onItemClick;
     }
 
 
@@ -51,6 +58,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         v = LayoutInflater.from(mContext).inflate(R.layout.item_contact, parent, false);
         final MyViewHolder vHolder = new MyViewHolder(v);
+        final RecyclerViewAdapter r= this;
 
         //Inicializando el cuadro de dialogo
 
@@ -166,6 +174,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 myDialog.dismiss();
             }
         });
+
+        //Enviando a Favoritos
+        vHolder.fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.contactList.get(position).toggle();
+                onItemClick.onItemClick(r);
+            }
+        });
+
         return vHolder;
     }
 
@@ -197,6 +215,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView tv_name, tv_phone;
         private ImageView img;
         private Button share;
+        private ImageButton fav;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -205,6 +224,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tv_name = (TextView) itemView.findViewById(R.id.name_contact);
             tv_phone = (TextView) itemView.findViewById(R.id.phone_contact);
             img = (ImageView) itemView.findViewById(R.id.img_contact);
+            fav = (ImageButton) itemView.findViewById(R.id.fav_button);
         }
     }
 

@@ -36,11 +36,19 @@ import java.util.List;
 public class FragmentContact extends Fragment {
 
     View v;
+    private Context context;
     public RecyclerView myrecyclerview;
-    public List<Contact> lstContact;
+    public static List<Contact> lstContact;
     private StringBuilder wbuilder,wbuilder2;
+    private RecyclerViewContactInterface sendData;
 
     public FragmentContact() {
+
+    }
+
+    public interface RecyclerViewContactInterface{
+        void updateFavAdapter();
+
     }
 
 
@@ -53,10 +61,15 @@ public class FragmentContact extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v= inflater.inflate(R.layout.contact_fragment,container,false);
         myrecyclerview = (RecyclerView) v.findViewById(R.id.contact_recyclerview);
-        RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(getContext(),lstContact);
+        RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(getContext(), MainActivity.contactList, new RecyclerViewAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerViewAdapter contact) {
+                contact.notifyDataSetChanged();
+                sendData.updateFavAdapter();
+            }
+        });
         myrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         myrecyclerview.setAdapter(recyclerAdapter);
-
 
         //Buscando un contacto
         EditText ets = (EditText) v.findViewById(R.id.et_search);
@@ -83,7 +96,13 @@ public class FragmentContact extends Fragment {
 
                 }
 
-                RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(),filterList);
+                RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), filterList, new RecyclerViewAdapter.onItemClickListener() {
+                    @Override
+                    public void onItemClick(RecyclerViewAdapter contact) {
+                        contact.notifyDataSetChanged();
+                        sendData.updateFavAdapter();
+                    }
+                });
                 myrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
                 myrecyclerview.setAdapter(recyclerViewAdapter);
             }
@@ -121,9 +140,22 @@ public class FragmentContact extends Fragment {
 
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            sendData = (RecyclerViewContactInterface) getActivity();
+        }catch (Exception e){
+            Log.e("Error" , e.getMessage().toString());
+
+        }
+    }
+
     /* Metodo para cargar los contactos*/
 
     public void loadContacts(){
+        MainActivity.contactList = new ArrayList<>();
         StringBuilder builder = new StringBuilder();
         StringBuilder builder2 = new StringBuilder();
 
@@ -166,6 +198,7 @@ public class FragmentContact extends Fragment {
 
         for(int i=0; i<allNames.length;i++){
             lstContact.add(new Contact(allNames[i],allPhones[i],R.drawable.contact_icon));
+            MainActivity.contactList.add(new Contact(allNames[i],allPhones[i],R.drawable.contact_icon));
         }
 
     }
@@ -207,7 +240,12 @@ public class FragmentContact extends Fragment {
 
 
                         lstContact.add(new Contact(set_name,set_number,R.drawable.contact_icon));
-                        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(),lstContact);
+                        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), lstContact, new RecyclerViewAdapter.onItemClickListener() {
+                            @Override
+                            public void onItemClick(RecyclerViewAdapter contact) {
+                                contact.notifyDataSetChanged();
+                            }
+                        });
                         myrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
                         myrecyclerview.setAdapter(recyclerViewAdapter);
 

@@ -4,6 +4,7 @@ public class Contact {
 
     private String Name,Phone;
     private int Photo;
+    private boolean isFav = false;
 
     public Contact() {
     }
@@ -14,10 +15,12 @@ public class Contact {
         Name = name;
         Phone = phone;
         Photo = photo;
+        isFav = false;
     }
 
     //Getter
 
+    public boolean getFavstatus(){ return isFav;}
 
     public String getName() {
         return Name;
@@ -33,6 +36,7 @@ public class Contact {
 
     //Setter
 
+    public void setFavStatus(boolean status){ isFav = status;}
 
     public void setName(String name) {
         Name = name;
@@ -45,5 +49,8 @@ public class Contact {
     public void setPhoto(int photo) {
         Photo = photo;
     }
+
+    public void toggle(){this.isFav = !this.isFav;}
+
 
 }

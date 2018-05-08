@@ -48,12 +48,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewContactInterface {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
     private RecyclerViewAdapter recyclerViewAdapter;
+    public static List<Contact> contactList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,4 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void updateFavAdapter() {
+        String tag = "android:switcher:"+R.id.viewpager_id+":"+2;
+        FragmentFav f = (FragmentFav) getSupportFragmentManager().findFragmentByTag(tag);
+        f.updateData();
+
+    }
 }
