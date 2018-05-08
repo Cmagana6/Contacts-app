@@ -12,7 +12,7 @@
     <ImageView
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@drawable/contact_icon"
         android:id="@+id/img_contact"
         />
 
@@ -41,17 +41,5 @@
 
 
     </LinearLayout>
-
-      <android.support.design.widget.CoordinatorLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent">
-        <ImageButton
-            android:id="@+id/fav_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_star_black_24dp"
-            />
-      </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

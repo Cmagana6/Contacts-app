@@ -76,7 +76,7 @@ public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRe
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            fav = (ImageButton) itemView.findViewById(R.id.fav_button);
+            fav = (ImageButton) itemView.findViewById(R.id.btn_fav);
             item_contact = (LinearLayout) itemView.findViewById(R.id.contact_item_id);
             tv_name = (TextView) itemView.findViewById(R.id.name_contact);
             tv_phone = (TextView) itemView.findViewById(R.id.phone_contact);

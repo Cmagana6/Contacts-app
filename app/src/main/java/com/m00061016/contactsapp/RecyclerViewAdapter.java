@@ -176,11 +176,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         });
 
         //Enviando a Favoritos
-        vHolder.fav.setOnClickListener(new View.OnClickListener() {
+        myDialog.findViewById(R.id.btn_fav).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.contactList.get(position).toggle();
+                Toast.makeText(mContext,("Añadido a favoritos " ),Toast.LENGTH_SHORT).show();
                 onItemClick.onItemClick(r);
+                myDialog.dismiss();
             }
         });
 
@@ -224,7 +226,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tv_name = (TextView) itemView.findViewById(R.id.name_contact);
             tv_phone = (TextView) itemView.findViewById(R.id.phone_contact);
             img = (ImageView) itemView.findViewById(R.id.img_contact);
-            fav = (ImageButton) itemView.findViewById(R.id.fav_button);
+            fav = (ImageButton) itemView.findViewById(R.id.btn_fav);
         }
     }
 
