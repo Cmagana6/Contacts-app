@@ -51,6 +51,8 @@ public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRe
         holder.tv_name.setText(contact.getName());
         holder.tv_phone.setText(contact.getPhone());
 
+
+
     }
 
     @Override

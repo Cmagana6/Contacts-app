@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewConta
 
         //Agregando los fragmentos al adaptador
 
-        adapter.AddFragment(new FragmentCall(),"");
         adapter.AddFragment(new FragmentContact(),"");
         adapter.AddFragment(new FragmentFav(),"");
 
@@ -76,9 +75,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewConta
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_call);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_group);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_star);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_group);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_star);
 
         //Remover las sombras de la barra de accion
 
@@ -90,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewConta
 
     @Override
     public void updateFavAdapter() {
-        String tag = "android:switcher:"+R.id.viewpager_id+":"+2;
+        String tag = "android:switcher:"+R.id.viewpager_id+":"+1;
         FragmentFav f = (FragmentFav) getSupportFragmentManager().findFragmentByTag(tag);
         f.updateData();
 
