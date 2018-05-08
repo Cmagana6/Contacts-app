@@ -2,6 +2,7 @@ package com.m00061016.contactsapp;
 
 public class Contact {
 
+    private int id;
     private String Name,Phone;
     private int Photo;
     private boolean isFav = false;
@@ -11,14 +12,17 @@ public class Contact {
 
     //Definiendo el constructor de la clase
 
-    public Contact(String name, String phone, int photo) {
+    public Contact(String name, String phone, int photo,int id) {
         Name = name;
         Phone = phone;
         Photo = photo;
         isFav = false;
+        this.id= id;
     }
 
     //Getter
+
+    public int getId(){ return this.id;}
 
     public boolean getFavstatus(){ return isFav;}
 
@@ -52,5 +56,6 @@ public class Contact {
 
     public void toggle(){this.isFav = !this.isFav;}
 
+    public void setId(int id){this.id = id;}
 
 }

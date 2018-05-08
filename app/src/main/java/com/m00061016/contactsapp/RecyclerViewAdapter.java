@@ -166,6 +166,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View v) {
 
                 mData.remove(position);
+                MainActivity.contactList = mData;
+                FragmentContact.lstContact = mData;
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, mData.size());
 

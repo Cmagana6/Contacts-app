@@ -35,6 +35,7 @@ import java.util.List;
 
 public class FragmentContact extends Fragment {
 
+    public int id=0;
     View v;
     private Context context;
     public RecyclerView myrecyclerview;
@@ -197,8 +198,9 @@ public class FragmentContact extends Fragment {
         String[] allPhones = phones.split("\\.");
 
         for(int i=0; i<allNames.length;i++){
-            lstContact.add(new Contact(allNames[i],allPhones[i],R.drawable.contact_icon));
-            MainActivity.contactList.add(new Contact(allNames[i],allPhones[i],R.drawable.contact_icon));
+            lstContact.add(new Contact(allNames[i],allPhones[i],R.drawable.contact_icon,i));
+            MainActivity.contactList.add(new Contact(allNames[i],allPhones[i],R.drawable.contact_icon,i));
+            id++;
         }
 
     }
@@ -208,7 +210,7 @@ public class FragmentContact extends Fragment {
     contiene el listado de la agenda
     */
     public void addContact(String name, String phone){
-        lstContact.add(0,new Contact(name,phone,R.drawable.contact_icon));
+        lstContact.add(0,new Contact(name,phone,R.drawable.contact_icon,id));
 
     }
 
@@ -239,7 +241,7 @@ public class FragmentContact extends Fragment {
                         String set_number = number.getText().toString();
 
 
-                        lstContact.add(new Contact(set_name,set_number,R.drawable.contact_icon));
+                        lstContact.add(new Contact(set_name,set_number,R.drawable.contact_icon,id++));
                         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), lstContact, new RecyclerViewAdapter.onItemClickListener() {
                             @Override
                             public void onItemClick(RecyclerViewAdapter contact) {
